@@ -1,0 +1,330 @@
+#include <stdio.h>
+#include<bits/stdc++.h>
+using namespace std;
+
+class Floodfill{
+    public:
+    bool CheckWin(vector<vector<string>> newArr){
+        int count=0;
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(newArr[i][j]=="-"){
+                    count++;
+                }
+            }
+        }
+        if(count==10){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+    void ShowClues(vector<vector<int>> arr,vector<vector<string>>& newArr,int x,int y){
+         
+         if(x>=0&&x<=8&&y>=0&&y<=8){
+            newArr[x][y]=to_string(arr[x][y]); 
+         }
+         up(arr,newArr,x-1,y);
+         down(arr,newArr,x+1,y);
+         right(arr,newArr,x,y-1);
+         left(arr,newArr,x,y+1);
+         n_w(arr,newArr,x-1,y-1);
+         s_w(arr,newArr,x+1,y-1);
+         n_e(arr,newArr,x-1,y+1);
+         s_e(arr,newArr,x+1,y+1);
+    }
+    void up(vector<vector<int>> arr,vector<vector<string>>& newArr,int x,int y){
+        
+        if(x>=0&&arr[x][y]==0){
+            newArr[x][y]=to_string(arr[x][y]);
+            ShowClues(arr,newArr,x,y);
+        }
+        else if(x>=0&&arr[x][y]==9){
+            return;
+        }
+        else if(x>=0&&arr[x][y]!=0){
+            newArr[x][y]=to_string(arr[x][y]);
+            return;
+        }
+        else 
+        {
+            return;
+        }
+        
+    }
+    void down(vector<vector<int>> arr,vector<vector<string>>& newArr,int x,int y){
+        if(x<=8){
+        if(arr[x][y]==9){
+            return;
+        }
+        if(x<=8&&arr[x][y]==0){
+            newArr[x][y]=to_string(arr[x][y]);
+           // ShowClues(arr,newArr,x,y);
+        }else if(arr[x][y]!=0){
+            newArr[x][y]=to_string(arr[x][y]);
+            return;
+        }
+        }
+        else{
+            return;
+        }
+    }
+    void right(vector<vector<int>> arr,vector<vector<string>>& newArr,int x,int y){
+        if(x>=0&&x<=8&&y>=0&&y<=8){
+        if(arr[x][y]==9){
+            return;
+        }
+       else if(y>=0&&arr[x][y]==0){
+            newArr[x][y]=to_string(arr[x][y]);
+           // ShowClues(arr,newArr,x,y);
+        }else {
+            return;
+        }
+        }
+        else{
+            return;
+        }
+    }
+    void left(vector<vector<int>> arr,vector<vector<string>>& newArr,int x,int y){
+        if(x>=0&&x<=8&&y>=0&&y<=8){
+        if(arr[x][y]==9){
+            return;
+        }
+        else if(y<=8&&arr[x][y]==0){
+            newArr[x][y]=to_string(arr[x][y]);
+           // ShowClues(arr,newArr,x,y);
+        }else{
+            newArr[x][y]=to_string(arr[x][y]);
+            return;
+        }
+        }else{
+            return;
+        }
+    }
+    void n_w(vector<vector<int>> arr,vector<vector<string>>& newArr,int x,int y){
+        if(x>=0&&x<=8&&y>=0&&y<=8){
+        if(arr[x][y]==9){
+            return;
+        }
+        if(arr[x][y]==0){
+            newArr[x][y]=to_string(arr[x][y]);
+           // ShowClues(arr,newArr,x,y);
+        }else{
+            newArr[x][y]=to_string(arr[x][y]);
+            return;
+        }
+        }
+        else{
+            return;
+        }
+    }
+    void s_w(vector<vector<int>> arr,vector<vector<string>>& newArr,int x,int y){
+        if(x>=0&&x<=8&&y>=0&&y<=8){
+        if(arr[x][y]==9){
+            return;
+        }
+        if(arr[x][y]==0){
+            newArr[x][y]=to_string(arr[x][y]);
+           // ShowClues(arr,newArr,x,y);
+        }else{
+            newArr[x][y]=to_string(arr[x][y]);
+            return;
+        }
+        }
+        else{
+            return;
+        }
+    }
+    void n_e(vector<vector<int>> arr,vector<vector<string>>& newArr,int x,int y){
+        if(x>=0&&x<=8&&y>=0&&y<=8){
+        if(arr[x][y]==9){
+            return;
+        }
+        if(arr[x][y]==0){
+            newArr[x][y]=to_string(arr[x][y]);
+           // ShowClues(arr,newArr,x,y);
+        }else{
+            newArr[x][y]=to_string(arr[x][y]);
+            return;
+        }
+        }else{
+            return;
+        }
+    }
+    void s_e(vector<vector<int>> arr,vector<vector<string>>& newArr,int x,int y){
+        if(x>=0&&x<=8&&y>=0&&y<=8){
+        if(arr[x][y]==9){
+            return;
+        }
+        if(arr[x][y]==0){
+            newArr[x][y]=to_string(arr[x][y]);
+           // ShowClues(arr,newArr,x,y);
+        }else{
+            newArr[x][y]=to_string(arr[x][y]);
+            return;
+        }
+    }
+    else{
+        return;
+    }
+    }
+};
+class MindSweeper{
+    public:
+    void BombFix(vector<vector<int>>& arr){
+        int i=0;
+        while(i<10){
+            int a=rand()%9;
+            int b=rand()%9;
+            if(arr[a][b]==9){
+                continue;
+            }
+            arr[a][b]=9;
+            i++;
+        }
+    }
+    void FixClues(vector<vector<int>>& arr){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                int count=0;
+                if(arr[i][j]==9){
+                    continue;
+                }
+                else if(i==0&&j==0){
+                    if(arr[i][j+1]==9){count++;}
+                    if(arr[i+1][j+1]==9){count++;}
+                    if(arr[i+1][j]==9){count++;}
+                }
+                else if(i==0&&j<8){
+                    if(arr[i][j+1]==9){count++;}
+                    if(arr[i+1][j+1]==9){count++;}
+                    if(arr[i+1][j]==9){count++;}
+                    if(arr[i][j-1]==9){count++;} 
+                     if(arr[i+1][j-1]==9){count++;} 
+                    
+                }
+                else if(i==0&&j==8){
+                    if(arr[i+1][j+1]==9){count++;}
+                    if(arr[i+1][j-1]==9){count++;}
+                    if(arr[i][j-1]==9){count++;} 
+                }
+                else if(i==8&&j==0){
+                     if(arr[i-1][j]==9){count++;} 
+                      if(arr[i-1][j+1]==9){count++;} 
+                       if(arr[i][j+1]==9){count++;} 
+                }
+                else if(i==8&&j==8){
+                     if(arr[i][j-1]==9){count++;} 
+                      if(arr[i-1][j-1]==9){count++;} 
+                       if(arr[i-1][j]==9){count++;} 
+                }
+                else if(i==8&&j<8){
+                    if(arr[i][j-1]==9){count++;} 
+                      if(arr[i-1][j-1]==9){count++;} 
+                       if(arr[i-1][j]==9){count++;} 
+                      if(arr[i][j+1]==9){count++;} 
+                       if(arr[i-1][j+1]==9){count++;} 
+                }
+                else if(i<8&&j==0){
+                     if(arr[i-1][j]==9){count++;}
+                    if(arr[i-1][j+1]==9){count++;}
+                    if(arr[i][j+1]==9){count++;} 
+                     if(arr[i+1][j+1]==9){count++;}
+                    if(arr[i+1][j]==9){count++;} 
+                }
+                else if(i<8&&j==8){
+                     if(arr[i+1][j]==9){count++;}
+                     if(arr[i+1][j-1]==9){count++;}
+                     if(arr[i][j-1]==9){count++;}
+                     if(arr[i-1][j]==9){count++;}
+                     if(arr[i-1][j-1]==9){count++;} 
+                }
+                
+                else {
+                    if(arr[i-1][j]==9){count++;}
+                    if(arr[i+1][j]==9){count++;}
+                    if(arr[i-1][j-1]==9){count++;}
+                    if(arr[i-1][j+1]==9){count++;}
+                    if(arr[i+1][j-1]==9){count++;}
+                    if(arr[i+1][j+1]==9){count++;}
+                    if(arr[i][j-1]==9){count++;}
+                    if(arr[i][j+1]==9){count++;}
+                }
+                arr[i][j]=count;
+            }
+        }
+    }
+};
+int main()
+{
+    vector<vector<int>> arr(9,vector<int>(9,0));
+    MindSweeper obj;
+    obj.BombFix(arr);
+     cout<<"   0 1 2 3 4 5 6 7 8\n\n";
+    for(int i=0;i<9;i++){
+        cout<<i<<"  ";
+        for(int j=0;j<9;j++){
+            cout<<"- ";
+        }
+        cout<<endl;
+    }
+    cout<<"\n Enter the position X Y\n";
+    int x,y;
+    cin>>x>>y;
+    if(arr[x][y]==9){
+      arr[0][0]=9;
+      arr[x][y]=0;
+    }
+    obj.FixClues(arr);
+    
+    
+    vector<vector<string>> newArr(9,vector<string>(9,"-"));
+    Floodfill obj1;
+    while(true){
+         obj1.ShowClues(arr,newArr,x,y);
+          cout<<"\n   0 1 2 3 4 5 6 7 8\n\n";
+         for(int i=0;i<9;i++){
+          cout<<i<<"  ";
+           for(int j=0;j<9;j++){
+             cout<<newArr[i][j]<<" ";
+             }
+            cout<<endl;
+             }
+             
+           bool win=obj1.CheckWin(newArr);
+            if(win){
+                cout<<"CONGRATULATIONS YOU WIN THE GAME";
+                break;
+            }
+            
+        cout<<"\n Enter the position X Y\n";
+        cin>>x>>y;
+        if(newArr[x][y]!="-"){
+            cout<<"This Position Already Exposed..";
+            continue;
+        }
+        if(arr[x][y]==9){
+            cout<<"BOMB EXPLODED YOU FAILED\n\n";
+            for(int i=0;i<9;i++){
+                for(int j=0;j<9;j++){
+                    if(arr[i][j]==9){
+                        newArr[i][j]="*";
+                    }
+                }
+            }
+        cout<<"\n   0 1 2 3 4 5 6 7 8\n\n";
+        for(int i=0;i<9;i++){
+           cout<<i<<"  ";
+         for(int j=0;j<9;j++){
+            cout<<newArr[i][j]<<" ";
+           }
+         cout<<endl;
+         }
+            break;
+         }
+      }
+         
+        
+    return 0;
+}
